@@ -22,8 +22,4 @@
     <ProjectReference Include="..\..\src\Fluxera.StronglyTypedId\Fluxera.StronglyTypedId.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-
 </Project>

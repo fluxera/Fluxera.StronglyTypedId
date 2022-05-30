@@ -3,6 +3,7 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Reflection;
 	using Fluxera.Guards;
 	using Fluxera.Utilities.Extensions;
 	using JetBrains.Annotations;
@@ -87,6 +88,25 @@
 		public static bool operator !=(StronglyTypedId<TStronglyTypedId, TValue> left, StronglyTypedId<TStronglyTypedId, TValue> right)
 		{
 			return !(left == right);
+		}
+
+		/// <summary>
+		///     Converts a value implicitly to an instance of <see cref="TStronglyTypedId" />.
+		/// </summary>
+		/// <param name="value"></param>
+		public static explicit operator StronglyTypedId<TStronglyTypedId, TValue>(TValue value)
+		{
+			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), BindingFlags.Public | BindingFlags.Instance, null, new object[] { value }, null);
+			return (TStronglyTypedId)instance;
+		}
+
+		/// <summary>
+		///     Converts a strongly-typed ID to the value of the ID.
+		/// </summary>
+		/// <param name="value"></param>
+		public static implicit operator TValue(StronglyTypedId<TStronglyTypedId, TValue> value)
+		{
+			return value.Value;
 		}
 
 		/// <inheritdoc />

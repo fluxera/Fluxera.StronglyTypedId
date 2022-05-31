@@ -10,19 +10,20 @@
 		static ConverterTests()
 		{
 			BsonMapper.Global.UseStronglyTypedId();
+			BsonMapper.Global.Entity<TestClass>().Id(x => x.ID);
 		}
 
 		public class TestClass
 		{
-			public PersonId PersonId { get; set; }
+			public PersonId ID { get; set; }
 		}
 
 		private static readonly TestClass TestInstance = new TestClass
 		{
-			PersonId = new PersonId("12345")
+			ID = new PersonId("12345")
 		};
 
-		private static readonly string JsonString = @"{""PersonId"":""12345""}";
+		private static readonly string JsonString = @"{""_id"":""12345""}";
 
 		[Test]
 		public void ShouldDeserialize()
@@ -30,7 +31,7 @@
 			BsonDocument doc = (BsonDocument)JsonSerializer.Deserialize(JsonString);
 			TestClass obj = BsonMapper.Global.ToObject<TestClass>(doc);
 
-			obj.PersonId.Should().Be(new PersonId("12345"));
+			obj.ID.Should().Be(new PersonId("12345"));
 		}
 
 		[Test]

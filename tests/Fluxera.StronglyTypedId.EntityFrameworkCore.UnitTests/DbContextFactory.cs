@@ -4,13 +4,13 @@
 
 	public static class DbContextFactory
 	{
-		public static TestDbContext Generate(int seedCount)
+		public static TestDbContext Generate()
 		{
 			PersonFactory.Initialize();
 
 			TestDbContext context = new TestDbContext
 			{
-				SeedData = PersonFactory.Generate(seedCount).ToArray(),
+				SeedData = PersonFactory.Generate().ToArray(),
 			};
 
 			context.Database.EnsureDeleted();

@@ -10,7 +10,7 @@
 	public static class ConventionPackExtensions
 	{
 		/// <summary>
-		///     Configure the serializer to use the <see cref="StronglyTypedId{TStronglyTypedId,TValue}" />.
+		///     Configure the serializer to use the <see cref="StronglyTypedIdSerializer{TStronglyTypedId,TValue}" />.
 		/// </summary>
 		/// <param name="pack"></param>
 		/// <returns></returns>

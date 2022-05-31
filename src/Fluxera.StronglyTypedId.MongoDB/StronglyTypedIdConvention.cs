@@ -20,7 +20,7 @@
 			if(memberType.IsStronglyTypedId())
 			{
 				Type valueType = memberType.GetValueType();
-				Type serializerTypeTemplate = typeof(StronglyTypedId<,>);
+				Type serializerTypeTemplate = typeof(StronglyTypedIdSerializer<,>);
 				Type serializerType = serializerTypeTemplate.MakeGenericType(memberType, valueType);
 
 				IBsonSerializer enumerationSerializer = (IBsonSerializer)Activator.CreateInstance(serializerType);

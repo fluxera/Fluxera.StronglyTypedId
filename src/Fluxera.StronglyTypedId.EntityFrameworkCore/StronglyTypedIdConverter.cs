@@ -1,7 +1,6 @@
 ﻿namespace Fluxera.StronglyTypedId.EntityFrameworkCore
 {
 	using System;
-	using System.Reflection;
 	using JetBrains.Annotations;
 	using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -32,7 +31,7 @@
 				return null;
 			}
 
-			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), BindingFlags.Public | BindingFlags.Instance, null, new object[] { value }, null);
+			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), new object[] { value });
 			return (TStronglyTypedId)instance;
 		}
 	}

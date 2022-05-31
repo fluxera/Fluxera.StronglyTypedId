@@ -5,6 +5,7 @@
 	using System.Linq;
 	using System.Reflection;
 	using Fluxera.Guards;
+	using Fluxera.Utilities.Extensions;
 	using JetBrains.Annotations;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore.Metadata;
@@ -17,35 +18,42 @@
 	public static class ModelBuilderExtensions
 	{
 		/// <summary>
-		///     Configure the module builder to use the <see cref="StronglyTypedIdConverter{TStronglyTypedId,TValue}" />.
+		///     Configure the <see cref="DbContext" /> to use the <see cref="StronglyTypedIdConverterSelector" />.
+		/// </summary>
+		/// <param name="options"></param>
+		/// <returns></returns>
+		public static DbContextOptionsBuilder UseStronglyTypedId(this DbContextOptionsBuilder options)
+		{
+			return options.ReplaceService<IValueConverterSelector, StronglyTypedIdConverterSelector>();
+		}
+
+		/// <summary>
+		///     Configure the model builder to use the <see cref="StronglyTypedIdConverter{TStronglyTypedId,TValue}" />.
 		/// </summary>
 		/// <param name="modelBuilder"></param>
 		public static void UseStronglyTypedId(this ModelBuilder modelBuilder)
 		{
-			Guard.Against.Null(modelBuilder, nameof(modelBuilder));
+			Guard.Against.Null(modelBuilder);
 
 			foreach(IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
 			{
 				IEnumerable<PropertyInfo> properties = entityType
 					.ClrType
 					.GetProperties()
-					.Where(type => type.PropertyType.IsStronglyTypedId());
+					.Where(propertyInfo => propertyInfo.PropertyType.UnwrapNullableType().IsStronglyTypedId());
 
 				foreach(PropertyInfo property in properties)
 				{
-					Type enumerationType = property.PropertyType;
-					Type valueType = enumerationType.GetValueType();
+					Type idType = property.PropertyType;
+					Type valueType = idType.GetValueType();
 
 					Type converterTypeTemplate = typeof(StronglyTypedIdConverter<,>);
-
-					Type converterType = converterTypeTemplate.MakeGenericType(enumerationType, valueType);
-
-					ValueConverter converter = (ValueConverter)Activator.CreateInstance(converterType);
+					Type converterType = converterTypeTemplate.MakeGenericType(idType, valueType);
 
 					modelBuilder
 						.Entity(entityType.ClrType)
 						.Property(property.Name)
-						.HasConversion(converter);
+						.HasConversion(converterType);
 				}
 			}
 		}

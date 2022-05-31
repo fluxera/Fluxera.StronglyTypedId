@@ -43,7 +43,7 @@
 				}
 
 				object value = bson.RawValue;
-				object instance = Activator.CreateInstance(stronglyTypedIdType, BindingFlags.Public | BindingFlags.Instance, null, new object[] { value }, null);
+				object instance = Activator.CreateInstance(stronglyTypedIdType, new object[] { value });
 				return instance;
 			};
 		}

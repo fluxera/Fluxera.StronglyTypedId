@@ -1,7 +1,6 @@
 ﻿namespace Fluxera.StronglyTypedId.JsonNet
 {
 	using System;
-	using System.Reflection;
 	using JetBrains.Annotations;
 	using Newtonsoft.Json;
 
@@ -39,7 +38,7 @@
 			}
 
 			TValue value = serializer.Deserialize<TValue>(reader);
-			object instance = Activator.CreateInstance(objectType, BindingFlags.Public | BindingFlags.Instance, null, new object[] { value }, null);
+			object instance = Activator.CreateInstance(objectType, new object[] { value });
 			return (TStronglyTypedId)instance;
 		}
 	}

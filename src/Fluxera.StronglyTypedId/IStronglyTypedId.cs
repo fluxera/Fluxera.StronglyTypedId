@@ -10,6 +10,7 @@
 	/// <typeparam name="TKey"></typeparam>
 	[PublicAPI]
 	public interface IStronglyTypedId<TStronglyTypedId, out TKey> : IComparable<TStronglyTypedId>, IEquatable<TStronglyTypedId>
+		where TKey : notnull
 	{
 		/// <summary>
 		///     Gets the underlying value of the strongly-typed ID.

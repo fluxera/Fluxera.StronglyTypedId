@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.ComponentModel;
 	using System.Linq;
 	using Fluxera.Guards;
 	using Fluxera.Utilities.Extensions;
@@ -13,9 +14,10 @@
 	/// <typeparam name="TStronglyTypedId">The type of the strongly-typed ID.</typeparam>
 	/// <typeparam name="TValue">The type of the IDs value.</typeparam>
 	[PublicAPI]
+	[TypeConverter(typeof(StronglyTypedIdConverter))]
 	public abstract class StronglyTypedId<TStronglyTypedId, TValue> : IStronglyTypedId<TStronglyTypedId, TValue>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
-		where TValue : IComparable
+		where TValue : notnull, IComparable
 	{
 		/// <summary>
 		///     To ensure hashcode uniqueness, a carefully selected random number multiplier

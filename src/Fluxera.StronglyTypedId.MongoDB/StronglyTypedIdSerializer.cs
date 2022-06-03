@@ -16,6 +16,17 @@
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
 		where TValue : IComparable
 	{
+		private readonly IBsonSerializer idValueSerializer;
+
+		/// <summary>
+		///     Initializes a new instance of the <see cref="StronglyTypedIdSerializer{TStronglyTypedId,TValue}" />;
+		/// </summary>
+		/// <param name="idValueSerializer"></param>
+		public StronglyTypedIdSerializer(IBsonSerializer idValueSerializer)
+		{
+			this.idValueSerializer = idValueSerializer;
+		}
+
 		/// <inheritdoc />
 		public override void Serialize(BsonSerializationContext context, BsonSerializationArgs args, TStronglyTypedId value)
 		{
@@ -25,7 +36,14 @@
 			}
 			else
 			{
-				BsonSerializer.Serialize(context.Writer, value.Value);
+				if(this.idValueSerializer != null)
+				{
+					this.idValueSerializer.Serialize(context, args, value.Value);
+				}
+				else
+				{
+					BsonSerializer.Serialize(context.Writer, value.Value);
+				}
 			}
 		}
 
@@ -38,7 +56,17 @@
 				return null;
 			}
 
-			TValue value = BsonSerializer.Deserialize<TValue>(context.Reader);
+			TValue value;
+
+			if(this.idValueSerializer != null)
+			{
+				value = (TValue)this.idValueSerializer.Deserialize(context, args);
+			}
+			else
+			{
+				value = BsonSerializer.Deserialize<TValue>(context.Reader);
+			}
+
 			object instance = Activator.CreateInstance(args.NominalType, new object[] { value });
 			return (TStronglyTypedId)instance;
 		}

@@ -13,8 +13,7 @@
 		[Test]
 		public async Task ShouldUseNameConverter()
 		{
-			int seedCount = 1;
-			using TestDbContext context = DbContextFactory.Generate();
+			await using TestDbContext context = DbContextFactory.Generate();
 
 			List<Person> results = await context.People.Where(x => x.Id == (PersonId)"12345").ToListAsync();
 			List<Person> people = context.Set<Person>().ToList();

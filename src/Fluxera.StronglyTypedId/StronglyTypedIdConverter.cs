@@ -44,7 +44,7 @@
 				throw new InvalidOperationException($"The type '{stronglyTypedIdType}' is not a strongly-typed ID.");
 			}
 
-			Type idValueType = stronglyTypedIdType.GetValueType();
+			Type idValueType = stronglyTypedIdType.GetStronglyTypedIdValueType();
 			Type actualConverterType = typeof(StronglyTypedIdConverter<,>).MakeGenericType(stronglyTypedIdType, idValueType);
 			return (TypeConverter)Activator.CreateInstance(actualConverterType);
 		}
@@ -54,6 +54,7 @@
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
 		where TValue : notnull, IComparable
 	{
+		// ReSharper disable once StaticMemberInGenericType
 		private static TypeConverter IdValueConverter { get; } = GetIdValueConverter();
 
 		private static TypeConverter GetIdValueConverter()

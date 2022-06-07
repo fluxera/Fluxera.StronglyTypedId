@@ -19,7 +19,7 @@ namespace Fluxera.StronglyTypedId.SystemTextJson
 		/// <inheritdoc />
 		public override JsonConverter CreateConverter(Type typeToConvert, JsonSerializerOptions options)
 		{
-			Type valueType = typeToConvert.GetValueType();
+			Type valueType = typeToConvert.GetStronglyTypedIdValueType();
 			Type converterTypeTemplate = typeof(StronglyTypedIdConverter<,>);
 			Type converterType = converterTypeTemplate.MakeGenericType(typeToConvert, valueType);
 

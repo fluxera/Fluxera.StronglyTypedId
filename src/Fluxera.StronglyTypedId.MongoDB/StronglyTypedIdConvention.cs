@@ -38,7 +38,7 @@
 
 			if(memberType.IsStronglyTypedId())
 			{
-				Type valueType = memberType.GetValueType();
+				Type valueType = memberType.GetStronglyTypedIdValueType();
 				Type serializerTypeTemplate = typeof(StronglyTypedIdSerializer<,>);
 				Type serializerType = serializerTypeTemplate.MakeGenericType(memberType, valueType);
 

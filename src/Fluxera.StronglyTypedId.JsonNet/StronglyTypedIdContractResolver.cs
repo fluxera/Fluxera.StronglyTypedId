@@ -14,7 +14,7 @@
 		{
 			if(objectType.IsStronglyTypedId())
 			{
-				Type valueType = objectType.GetValueType();
+				Type valueType = objectType.GetStronglyTypedIdValueType();
 				Type converterTypeTemplate = typeof(StronglyTypedIdConverter<,>);
 				Type converterType = converterTypeTemplate.MakeGenericType(objectType, valueType);
 

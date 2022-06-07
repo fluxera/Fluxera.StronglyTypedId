@@ -45,7 +45,7 @@
 				foreach(PropertyInfo property in properties)
 				{
 					Type idType = property.PropertyType;
-					Type valueType = idType.GetValueType();
+					Type valueType = idType.GetStronglyTypedIdValueType();
 
 					Type converterTypeTemplate = typeof(StronglyTypedIdConverter<,>);
 					Type converterType = converterTypeTemplate.MakeGenericType(idType, valueType);

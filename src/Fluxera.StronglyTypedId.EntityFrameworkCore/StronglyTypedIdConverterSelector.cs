@@ -33,7 +33,7 @@
 
 			if(underlyingProviderType is null || underlyingProviderType.IsStronglyTypedId())
 			{
-				Type valueType = underlyingModelType.GetValueType();
+				Type valueType = underlyingModelType.GetStronglyTypedIdValueType();
 
 				Type converterTypeTemplate = typeof(StronglyTypedIdConverter<,>);
 				Type converterType = converterTypeTemplate.MakeGenericType(underlyingModelType, valueType);

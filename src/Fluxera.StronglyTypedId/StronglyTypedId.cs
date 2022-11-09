@@ -92,7 +92,7 @@
 		}
 
 		/// <summary>
-		///     Converts a value implicitly to an instance of <see cref="TStronglyTypedId" />.
+		///     Converts a value implicitly to an instance of TStronglyTypedId.
 		/// </summary>
 		/// <param name="value"></param>
 		public static explicit operator StronglyTypedId<TStronglyTypedId, TValue>(TValue value)

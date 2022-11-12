@@ -38,8 +38,6 @@
 				optionsBuilder.EnableSensitiveDataLogging();
 			}
 
-			optionsBuilder.UseStronglyTypedId();
-
 			base.OnConfiguring(optionsBuilder);
 		}
 

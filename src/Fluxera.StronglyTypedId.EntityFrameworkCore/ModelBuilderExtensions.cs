@@ -9,7 +9,6 @@
 	using JetBrains.Annotations;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.EntityFrameworkCore.Metadata;
-	using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 	/// <summary>
 	///     Extension methods for the <see cref="ModelBuilder" /> type.
@@ -17,16 +16,6 @@
 	[PublicAPI]
 	public static class ModelBuilderExtensions
 	{
-		/// <summary>
-		///     Configure the <see cref="DbContext" /> to use the <see cref="StronglyTypedIdConverterSelector" />.
-		/// </summary>
-		/// <param name="options"></param>
-		/// <returns></returns>
-		public static DbContextOptionsBuilder UseStronglyTypedId(this DbContextOptionsBuilder options)
-		{
-			return options.ReplaceService<IValueConverterSelector, StronglyTypedIdConverterSelector>();
-		}
-
 		/// <summary>
 		///     Configure the model builder to use the <see cref="StronglyTypedIdConverter{TStronglyTypedId,TValue}" />.
 		/// </summary>

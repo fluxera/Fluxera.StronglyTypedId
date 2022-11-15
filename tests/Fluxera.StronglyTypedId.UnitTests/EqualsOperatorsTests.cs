@@ -1,4 +1,8 @@
-﻿namespace Fluxera.StronglyTypedId.UnitTests
+﻿// ReSharper disable InconsistentNaming
+
+// ReSharper disable ObjectCreationAsStatement
+
+namespace Fluxera.StronglyTypedId.UnitTests
 {
 	using System;
 	using System.Collections.Generic;
@@ -13,8 +17,8 @@
 		{
 			new object[]
 			{
-				null!,
-				null!,
+				null,
+				null,
 				true
 			},
 			new object[]
@@ -32,7 +36,7 @@
 			new object[]
 			{
 				new StringId("12345"),
-				null!,
+				null,
 				false
 			}
 		};

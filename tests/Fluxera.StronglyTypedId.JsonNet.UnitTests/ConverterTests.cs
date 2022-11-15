@@ -1,4 +1,6 @@
-﻿namespace Fluxera.StronglyTypedId.JsonNet.UnitTests
+﻿// ReSharper disable PossibleNullReferenceException
+
+namespace Fluxera.StronglyTypedId.JsonNet.UnitTests
 {
 	using FluentAssertions;
 	using Newtonsoft.Json;

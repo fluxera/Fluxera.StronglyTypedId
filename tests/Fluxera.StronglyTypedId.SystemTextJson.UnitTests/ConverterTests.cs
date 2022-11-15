@@ -1,4 +1,8 @@
-﻿namespace Fluxera.StronglyTypedId.SystemTextJson.UnitTests
+﻿// ReSharper disable InconsistentNaming
+
+// ReSharper disable PossibleNullReferenceException
+
+namespace Fluxera.StronglyTypedId.SystemTextJson.UnitTests
 {
 	using System.Text.Json;
 	using FluentAssertions;

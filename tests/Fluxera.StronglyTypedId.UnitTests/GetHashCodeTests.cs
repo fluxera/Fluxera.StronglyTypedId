@@ -1,4 +1,6 @@
-﻿namespace Fluxera.StronglyTypedId.UnitTests
+﻿// ReSharper disable InconsistentNaming
+
+namespace Fluxera.StronglyTypedId.UnitTests
 {
 	using System;
 	using System.Collections.Generic;

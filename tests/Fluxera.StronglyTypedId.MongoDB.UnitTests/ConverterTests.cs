@@ -13,7 +13,7 @@
 		{
 			ConventionPack pack = new ConventionPack();
 			pack.UseStronglyTypedId();
-			ConventionRegistry.Register("ConventionPack", pack, t => true);
+			ConventionRegistry.Register("ConventionPack", pack, _ => true);
 		}
 
 		public class TestClass

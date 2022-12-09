@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/fluxera/Foundation/_apis/build/status/GitHub/fluxera.Fluxera.StronglyTypedId?branchName=main&stageName=BuildAndTest)](https://dev.azure.com/fluxera/Foundation/_build/latest?definitionId=84&branchName=main)
+
 # Fluxera.StronglyTypedId
 
 A library that provides strongly-typed Ids without code generation. 

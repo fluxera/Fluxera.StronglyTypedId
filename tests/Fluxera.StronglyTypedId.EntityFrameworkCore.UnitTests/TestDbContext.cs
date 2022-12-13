@@ -54,12 +54,11 @@
 				foreach(Type type in types)
 				{
 					EntityTypeBuilder entityBuilder = modelBuilder.Entity(type);
+					entityBuilder.UseStronglyTypedId();
 					object[] data = this.SeedData.Where(x => x.GetType() == type).ToArray();
 					entityBuilder.HasData(data);
 				}
 			}
-
-			modelBuilder.UseStronglyTypedId();
 
 			base.OnModelCreating(modelBuilder);
 		}

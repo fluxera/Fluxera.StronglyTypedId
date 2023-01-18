@@ -42,9 +42,7 @@
 		/// <param name="value"></param>
 		protected StronglyTypedId(TValue value)
 		{
-			Guard.Against.Null(value);
-
-			this.Value = value;
+			this.Value = Guard.Against.Null(value);
 		}
 
 		/// <summary>

@@ -42,13 +42,35 @@
 		/// <param name="value"></param>
 		protected StronglyTypedId(TValue value)
 		{
-			this.Value = Guard.Against.Null(value);
+			this.Value = value;
 		}
+
+		private TValue value;
 
 		/// <summary>
 		///     Gets or sets value if the strongly-typed ID.
 		/// </summary>
-		public TValue Value { get; private set; }
+		public TValue Value
+		{
+			get => this.value;
+			private set
+			{
+				if(value is string valueString)
+				{
+					Guard.Against.NullOrWhiteSpace(valueString);
+				}
+				else if(value is Guid valueGuid)
+				{
+					Guard.Against.NullOrEmpty(valueGuid);
+				}
+				else if(typeof(TValue).IsNumeric())
+				{
+					Guard.Against.NegativeOrZero(Convert.ToDouble(value));
+				}
+
+				this.value = Guard.Against.Null(value);
+			}
+		}
 
 		/// <inheritdoc />
 		public bool Equals(TStronglyTypedId other)

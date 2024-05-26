@@ -15,6 +15,8 @@ namespace Fluxera.StronglyTypedId.SystemTextJson
 		/// <param name="options"></param>
 		public static void UseStronglyTypedId(this JsonSerializerOptions options)
 		{
+			Guard.ThrowIfNull(options);
+
 			options.Converters.Add(new StronglyTypedIdJsonConverterFactory());
 		}
 	}

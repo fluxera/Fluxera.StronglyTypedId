@@ -22,8 +22,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Fluxera.Guards" Version="8.0.*" />
-		<PackageReference Include="Fluxera.Utilities" Version="8.0.*" />
+		<InternalsVisibleTo Include="Fluxera.StronglyTypedId.EntityFrameworkCore" />
+		<InternalsVisibleTo Include="Fluxera.StronglyTypedId.JsonNet" />
+		<InternalsVisibleTo Include="Fluxera.StronglyTypedId.LiteDB" />
+		<InternalsVisibleTo Include="Fluxera.StronglyTypedId.MongoDB" />
+		<InternalsVisibleTo Include="Fluxera.StronglyTypedId.SystemTextJson" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

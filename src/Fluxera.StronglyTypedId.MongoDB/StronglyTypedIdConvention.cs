@@ -1,7 +1,6 @@
 ﻿namespace Fluxera.StronglyTypedId.MongoDB
 {
 	using System;
-	using Fluxera.Utilities.Extensions;
 	using global::MongoDB.Bson;
 	using global::MongoDB.Bson.Serialization;
 	using global::MongoDB.Bson.Serialization.Conventions;

@@ -16,6 +16,8 @@
 		/// <returns>True, if the type is an enumeration, false otherwise.</returns>
 		public static bool IsStronglyTypedId(this Type type)
 		{
+			Guard.ThrowIfNull(type);
+
 			if(type is null || type.IsAbstract || type.IsGenericTypeDefinition)
 			{
 				return false;
@@ -42,6 +44,8 @@
 		/// <returns>The type of the value.</returns>
 		public static Type GetStronglyTypedIdValueType(this Type type)
 		{
+			Guard.ThrowIfNull(type);
+
 			do
 			{
 				if(type != null && type.IsGenericType && type.GetGenericTypeDefinition() == typeof(StronglyTypedId<,>))

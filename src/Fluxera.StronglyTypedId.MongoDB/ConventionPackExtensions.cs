@@ -21,6 +21,8 @@
 			BsonType stringRepresentation = BsonType.ObjectId,
 			GuidRepresentation guidRepresentation = GuidRepresentation.Standard)
 		{
+			Guard.ThrowIfNull(pack);
+
 			pack.Add(new StronglyTypedIdConvention(stringRepresentation, guidRepresentation));
 
 			return pack;

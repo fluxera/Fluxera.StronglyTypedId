@@ -15,6 +15,8 @@
 		/// <param name="settings"></param>
 		public static void UseStronglyTypedId(this JsonSerializerSettings settings)
 		{
+			Guard.ThrowIfNull(settings);
+
 			settings.ContractResolver = new CompositeContractResolver
 			{
 				new StronglyTypedIdContractResolver()

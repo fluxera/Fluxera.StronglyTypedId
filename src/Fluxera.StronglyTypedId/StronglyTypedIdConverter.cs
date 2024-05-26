@@ -4,7 +4,6 @@
 	using System.Collections.Concurrent;
 	using System.ComponentModel;
 	using System.Globalization;
-	using Fluxera.Guards;
 
 	internal sealed class StronglyTypedIdConverter : TypeConverter
 	{
@@ -106,7 +105,7 @@
 		/// <inheritdoc />
 		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
 		{
-			Guard.Against.Null(value);
+			Guard.ThrowIfNull(value);
 
 			StronglyTypedId<TStronglyTypedId, TValue> stronglyTypedId = (StronglyTypedId<TStronglyTypedId, TValue>)value;
 

@@ -4,8 +4,6 @@
 	using System.Collections.Generic;
 	using System.ComponentModel;
 	using System.Linq;
-	using Fluxera.Guards;
-	using Fluxera.Utilities.Extensions;
 	using JetBrains.Annotations;
 
 	/// <summary>
@@ -33,7 +31,7 @@
 			Type valueType = typeof(TValue);
 			bool isIdentifierType = valueType.IsNumeric() || valueType == typeof(string) || valueType == typeof(Guid);
 
-			Guard.Against.False(isIdentifierType, nameof(Value), "The value of a strongly-typed ID must be a numeric, string or Guid type.");
+			Guard.ThrowIfFalse(isIdentifierType, nameof(Value), "The value of a strongly-typed ID must be a numeric, string or Guid type.");
 		}
 
 		/// <summary>
@@ -57,18 +55,18 @@
 			{
 				if(value is string valueString)
 				{
-					Guard.Against.NullOrWhiteSpace(valueString);
+					Guard.ThrowIfNullOrWhiteSpace(valueString);
 				}
 				else if(value is Guid valueGuid)
 				{
-					Guard.Against.NullOrEmpty(valueGuid);
+					Guard.ThrowIfNullOrEmpty(valueGuid);
 				}
 				else if(typeof(TValue).IsNumeric())
 				{
-					Guard.Against.NegativeOrZero(Convert.ToDouble(value));
+					Guard.ThrowIfNegativeOrZero(Convert.ToDouble(value));
 				}
 
-				this.value = Guard.Against.Null(value);
+				this.value = Guard.ThrowIfNull(value);
 			}
 		}
 

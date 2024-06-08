@@ -31,7 +31,7 @@
 			Type valueType = typeof(TValue);
 			bool isIdentifierType = valueType.IsNumeric() || valueType == typeof(string) || valueType == typeof(Guid);
 
-			Guard.ThrowIfFalse(isIdentifierType, nameof(Value), "The value of a strongly-typed ID must be a numeric, string or Guid type.");
+			Guard.ThrowIfFalse(isIdentifierType, nameof(Value), "The value of a strongly-typed ID must be int, long, string or Guid.");
 		}
 
 		/// <summary>
@@ -69,6 +69,62 @@
 				this.value = Guard.ThrowIfNull(value);
 			}
 		}
+
+#if NET7_0_OR_GREATER
+		/// <inheritdoc />
+		public static bool TryParse(string value, out TStronglyTypedId id)
+		{
+			Type valueType = typeof(TStronglyTypedId).GetStronglyTypedIdValueType();
+			bool isIdentifierType = valueType.IsNumeric() || valueType == typeof(string) || valueType == typeof(Guid);
+
+			if(!isIdentifierType)
+			{
+				id = null;
+				return false;
+			}
+
+			if(valueType == typeof(string))
+			{
+				if(!string.IsNullOrWhiteSpace(value))
+				{
+					id = (TStronglyTypedId)Activator.CreateInstance(typeof(TStronglyTypedId), [value]);
+					return true;
+				}
+			}
+
+			if(valueType.IsNumeric())
+			{
+				try
+				{
+					object numericValue = Convert.ChangeType(value, valueType);
+					id = (TStronglyTypedId)Activator.CreateInstance(typeof(TStronglyTypedId), [numericValue]);
+					return true;
+				}
+				catch
+				{
+					// Note: Intentionally left blank.
+				}
+			}
+
+			if(valueType == typeof(Guid))
+			{
+				if(Guid.TryParse(value, out Guid guidValue))
+				{
+					id = (TStronglyTypedId)Activator.CreateInstance(typeof(TStronglyTypedId), [guidValue]);
+					return true;
+				}
+			}
+
+			id = null;
+			return false;
+		}
+
+		/// <inheritdoc />
+		public static TStronglyTypedId Create(TValue value)
+		{
+			return (TStronglyTypedId)Activator.CreateInstance(typeof(TStronglyTypedId), [value]);
+		}
+#endif
 
 		/// <inheritdoc />
 		public bool Equals(TStronglyTypedId other)
@@ -115,7 +171,7 @@
 		/// <param name="value"></param>
 		public static explicit operator StronglyTypedId<TStronglyTypedId, TValue>(TValue value)
 		{
-			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), new object[] { value });
+			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), [value]);
 			return (TStronglyTypedId)instance;
 		}
 

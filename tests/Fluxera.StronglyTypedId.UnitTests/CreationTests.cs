@@ -62,5 +62,35 @@
 
 			action.Should().Throw<ArgumentException>();
 		}
+
+#if NET7_0_OR_GREATER
+		[Test]
+		public void ShouldCreateStringId()
+		{
+			StringId id = StringId.Create("1234");
+
+			id.Should().NotBeNull();
+			id.Value.Should().Be("1234");
+		}
+
+		[Test]
+		public void ShouldCreateIntegerId()
+		{
+			IntegerId id = IntegerId.Create(1234);
+
+			id.Should().NotBeNull();
+			id.Value.Should().Be(1234);
+		}
+
+		[Test]
+		public void ShouldCreateGuidId()
+		{
+			Guid value = Guid.NewGuid();
+			GuidId id = GuidId.Create(value);
+
+			id.Should().NotBeNull();
+			id.Value.Should().Be(value);
+		}
+#endif
 	}
 }

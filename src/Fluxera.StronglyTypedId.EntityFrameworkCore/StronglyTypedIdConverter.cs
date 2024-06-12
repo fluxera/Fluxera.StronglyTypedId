@@ -31,7 +31,7 @@
 				return null;
 			}
 
-			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), new object[] { value });
+			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), [value]);
 			return (TStronglyTypedId)instance;
 		}
 	}

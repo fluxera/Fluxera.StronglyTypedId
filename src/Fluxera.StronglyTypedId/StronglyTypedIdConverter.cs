@@ -95,7 +95,7 @@
 
 			if(value is TValue idValue)
 			{
-				object instance = Activator.CreateInstance(typeof(TStronglyTypedId), new object[] { idValue });
+				object instance = Activator.CreateInstance(typeof(TStronglyTypedId), [idValue]);
 				return instance;
 			}
 

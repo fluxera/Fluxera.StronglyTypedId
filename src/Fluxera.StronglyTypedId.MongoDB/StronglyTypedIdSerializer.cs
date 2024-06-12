@@ -67,7 +67,7 @@
 				value = BsonSerializer.Deserialize<TValue>(context.Reader);
 			}
 
-			object instance = Activator.CreateInstance(args.NominalType, new object[] { value });
+			object instance = Activator.CreateInstance(args.NominalType, [value]);
 			return (TStronglyTypedId)instance;
 		}
 	}

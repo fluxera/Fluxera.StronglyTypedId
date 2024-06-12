@@ -1,5 +1,4 @@
 ﻿// ReSharper disable InconsistentNaming
-
 // ReSharper disable ObjectCreationAsStatement
 
 namespace Fluxera.StronglyTypedId.UnitTests

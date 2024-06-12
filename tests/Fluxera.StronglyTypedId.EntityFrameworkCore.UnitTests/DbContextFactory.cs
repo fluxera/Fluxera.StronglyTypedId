@@ -1,6 +1,7 @@
 ﻿namespace Fluxera.StronglyTypedId.EntityFrameworkCore.UnitTests
 {
 	using System.Linq;
+	using Fluxera.StronglyTypedId.EntityFrameworkCore.UnitTests.Model;
 
 	public static class DbContextFactory
 	{

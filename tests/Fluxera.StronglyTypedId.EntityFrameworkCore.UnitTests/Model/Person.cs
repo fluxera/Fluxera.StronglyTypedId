@@ -1,4 +1,4 @@
-﻿namespace Fluxera.StronglyTypedId.EntityFrameworkCore.UnitTests
+﻿namespace Fluxera.StronglyTypedId.EntityFrameworkCore.UnitTests.Model
 {
 	using System.ComponentModel.DataAnnotations;
 

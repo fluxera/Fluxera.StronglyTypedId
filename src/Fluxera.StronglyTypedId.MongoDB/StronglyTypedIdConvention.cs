@@ -56,7 +56,7 @@
 					serializer = BsonSerializer.LookupSerializer(valueType);
 				}
 
-				IBsonSerializer enumerationSerializer = (IBsonSerializer)Activator.CreateInstance(serializerType, new object[] { serializer });
+				IBsonSerializer enumerationSerializer = (IBsonSerializer)Activator.CreateInstance(serializerType, [serializer]);
 				memberMap.SetSerializer(enumerationSerializer);
 			}
 		}

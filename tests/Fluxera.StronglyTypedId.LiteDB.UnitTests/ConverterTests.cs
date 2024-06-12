@@ -1,6 +1,7 @@
 ﻿namespace Fluxera.StronglyTypedId.LiteDB.UnitTests
 {
 	using FluentAssertions;
+	using Fluxera.StronglyTypedId.LiteDB.UnitTests.Model;
 	using global::LiteDB;
 	using NUnit.Framework;
 

@@ -38,7 +38,7 @@
 			}
 
 			TValue value = serializer.Deserialize<TValue>(reader);
-			object instance = Activator.CreateInstance(objectType, new object[] { value });
+			object instance = Activator.CreateInstance(objectType, [value]);
 			return (TStronglyTypedId)instance;
 		}
 	}

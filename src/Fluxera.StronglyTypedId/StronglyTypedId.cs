@@ -70,8 +70,12 @@
 			}
 		}
 
-#if NET7_0_OR_GREATER
-		/// <inheritdoc />
+		/// <summary>
+		///		Tries to parse the ID from a given string, by coercing the value.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public static bool TryParse(string value, out TStronglyTypedId id)
 		{
 			Type valueType = typeof(TStronglyTypedId).GetStronglyTypedIdValueType();
@@ -119,12 +123,15 @@
 			return false;
 		}
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Creates a new instance of the <see cref="TStronglyTypedId"/> with the given value.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
 		public static TStronglyTypedId Create(TValue value)
 		{
 			return (TStronglyTypedId)Activator.CreateInstance(typeof(TStronglyTypedId), [value]);
 		}
-#endif
 
 		/// <inheritdoc />
 		public bool Equals(TStronglyTypedId other)
@@ -166,13 +173,21 @@
 		}
 
 		/// <summary>
-		///     Converts a value implicitly to an instance of TStronglyTypedId.
+		///		Converts the ID implicitly to its value.
+		/// </summary>
+		/// <param name="value"></param>
+		public static implicit operator TValue(StronglyTypedId<TStronglyTypedId, TValue> value)
+		{
+			return value.Value;
+		}
+
+		/// <summary>
+		///     Converts a value explicitly to an instance of TStronglyTypedId.
 		/// </summary>
 		/// <param name="value"></param>
 		public static explicit operator StronglyTypedId<TStronglyTypedId, TValue>(TValue value)
 		{
-			object instance = Activator.CreateInstance(typeof(TStronglyTypedId), [value]);
-			return (TStronglyTypedId)instance;
+			return Create(value);
 		}
 
 		/// <inheritdoc />

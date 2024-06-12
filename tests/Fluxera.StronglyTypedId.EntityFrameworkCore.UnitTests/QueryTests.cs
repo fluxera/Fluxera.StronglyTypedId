@@ -14,24 +14,36 @@
 		private TestDbContext context;
 #pragma warning restore NUnit1032
 
-		[SetUp]
+		[OneTimeSetUp]
 		public void SetUp()
 		{
 			this.context = DbContextFactory.Generate();
 		}
 
-		[TearDown]
+		[OneTimeTearDown]
 		public void TearDown()
 		{
 			this.context?.Dispose();
 		}
 
 		[Test]
-		public async Task ShouldFindByPrimitiveValueObject()
+		public async Task ShouldFindByStronglyTypedId()
 		{
 			Person linqFilterResult = await this.context
 				.Set<Person>()
 				.Where(x => x.Id == PersonId.Create("12345"))
+				.FirstOrDefaultAsync();
+
+			linqFilterResult.Should().NotBeNull();
+		}
+
+		[Ignore("Fix this later")]
+		[Test]
+		public async Task ShouldFindByValue()
+		{
+			Person linqFilterResult = await this.context
+				.Set<Person>()
+				.Where(x => x.Id == "12345")
 				.FirstOrDefaultAsync();
 
 			linqFilterResult.Should().NotBeNull();

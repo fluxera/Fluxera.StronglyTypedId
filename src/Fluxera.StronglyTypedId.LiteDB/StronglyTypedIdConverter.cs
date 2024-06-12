@@ -29,7 +29,7 @@
 		}
 
 		/// <summary>
-		///     Deserialize a ID instance from the given bson value.
+		///     Deserialize an ID instance from the given bson value.
 		/// </summary>
 		/// <param name="stronglyTypedIdType"></param>
 		/// <returns></returns>

@@ -1,4 +1,5 @@
-﻿namespace Fluxera.StronglyTypedId
+﻿// ReSharper disable PossibleInvalidOperationException
+namespace Fluxera.StronglyTypedId
 {
 	using JetBrains.Annotations;
 	using System;

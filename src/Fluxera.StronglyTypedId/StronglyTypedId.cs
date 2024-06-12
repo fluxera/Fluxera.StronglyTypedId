@@ -13,9 +13,9 @@
 	/// <typeparam name="TValue">The type of the IDs value.</typeparam>
 	[PublicAPI]
 	[TypeConverter(typeof(StronglyTypedIdConverter))]
-	public abstract class StronglyTypedId<TStronglyTypedId, TValue> : IStronglyTypedId<TStronglyTypedId, TValue>
+	public abstract class StronglyTypedId<TStronglyTypedId, TValue> : IComparable<TStronglyTypedId>, IEquatable<TStronglyTypedId>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
-		where TValue : notnull, IComparable
+		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
 		/// <summary>
 		///     To ensure hashcode uniqueness, a carefully selected random number multiplier
@@ -140,6 +140,25 @@
 		}
 
 		/// <inheritdoc />
+		public sealed override bool Equals(object obj)
+		{
+			if(obj is null)
+			{
+				return false;
+			}
+
+			if(object.ReferenceEquals(this, obj))
+			{
+				return true;
+			}
+
+			StronglyTypedId<TStronglyTypedId, TValue> other = obj as StronglyTypedId<TStronglyTypedId, TValue>;
+			return other != null
+				&& this.GetType() == other.GetType()
+				&& this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+		}
+
+		/// <inheritdoc />
 		public int CompareTo(TStronglyTypedId other)
 		{
 			return (this.Value, other.Value) switch
@@ -191,25 +210,6 @@
 		}
 
 		/// <inheritdoc />
-		public sealed override bool Equals(object obj)
-		{
-			if(obj is null)
-			{
-				return false;
-			}
-
-			if(object.ReferenceEquals(this, obj))
-			{
-				return true;
-			}
-
-			StronglyTypedId<TStronglyTypedId, TValue> other = obj as StronglyTypedId<TStronglyTypedId, TValue>;
-			return other != null
-				&& this.GetType() == other.GetType()
-				&& this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
-		}
-
-		/// <inheritdoc />
 		public sealed override int GetHashCode()
 		{
 			unchecked
@@ -238,7 +238,7 @@
 		}
 
 		/// <summary>
-		///     Gets all components of the value object that are used for equality. <br />
+		///     Gets all components of the strongly-typed ID that are used for equality. <br />
 		///     The default implementation get all properties via reflection. One
 		///     can at any time override this behavior with a manual or custom implementation.
 		/// </summary>

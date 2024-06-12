@@ -28,6 +28,7 @@
 		/// <inheritdoc />
 		public IEnumerator<IContractResolver> GetEnumerator()
 		{
+			// ReSharper disable once NotDisposedResourceIsReturned
 			return this.contractResolvers.GetEnumerator();
 		}
 

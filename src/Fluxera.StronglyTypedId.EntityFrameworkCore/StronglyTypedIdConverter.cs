@@ -8,7 +8,7 @@
 	[PublicAPI]
 	public sealed class StronglyTypedIdConverter<TStronglyTypedId, TValue> : ValueConverter<TStronglyTypedId, TValue>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
-		where TValue : IComparable
+		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="StronglyTypedIdConverter{TStronglyTypedId,TValue}" /> type.

@@ -1,10 +1,8 @@
 ﻿namespace Fluxera.StronglyTypedId.MongoDB.UnitTests
 {
-	using System;
 	using System.Threading.Tasks;
 	using FluentAssertions;
 	using Fluxera.StronglyTypedId.MongoDB.UnitTests.Model;
-	using global::MongoDB.Bson;
 	using global::MongoDB.Bson.Serialization.Conventions;
 	using global::MongoDB.Driver;
 	using global::MongoDB.Driver.Linq;
@@ -13,8 +11,10 @@
 	[TestFixture]
 	public class QueryTests
 	{
-		[Test]
-		public async Task ShouldFindByStronglyTypedID()
+		private IMongoCollection<Person> collection;
+
+		[OneTimeSetUp]
+		public async Task SetUp()
 		{
 			ConventionPack pack = [];
 			pack.UseStronglyTypedId();
@@ -22,20 +22,35 @@
 
 			IMongoClient client = new MongoClient(GlobalFixture.ConnectionString);
 			IMongoDatabase database = client.GetDatabase(GlobalFixture.Database);
-			IMongoCollection<Person> collection = database.GetCollection<Person>("People");
+			this.collection = database.GetCollection<Person>("People");
 
 			Person person = new Person
 			{
-				Id = PersonId.Create(ObjectId.GenerateNewId().ToString()),
+				Id = PersonId.Create("6669b52802357c9886f6d24f"),
 				Name = "Tester"
 			};
 
 			await collection.InsertOneAsync(person);
+		}
 
-			Person linqFilterResult = await collection
+		[Test]
+		public async Task ShouldFindByStronglyTypedID()
+		{
+			Person linqFilterResult = await this.collection
 				.AsQueryable()
-				.Where(x => x.Id == person.Id)
+				.Where(x => x.Id == PersonId.Create("6669b52802357c9886f6d24f"))
 				.FirstOrDefaultAsync();
+			linqFilterResult.Should().NotBeNull();
+		}
+
+		[Test]
+		public async Task ShouldFindByValue()
+		{
+			Person linqFilterResult = await this.collection
+				.AsQueryable()
+				.Where(x => x.Id == "6669b52802357c9886f6d24f")
+				.FirstOrDefaultAsync();
+
 			linqFilterResult.Should().NotBeNull();
 		}
 	}

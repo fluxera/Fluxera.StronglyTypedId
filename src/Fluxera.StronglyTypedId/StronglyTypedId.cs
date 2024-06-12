@@ -14,8 +14,10 @@
 	[PublicAPI]
 	[TypeConverter(typeof(StronglyTypedIdConverter))]
 	public abstract class StronglyTypedId<TStronglyTypedId, TValue> : 
-		IComparable<StronglyTypedId<TStronglyTypedId, TValue>>, 
-		IEquatable<StronglyTypedId<TStronglyTypedId, TValue>>
+		IComparable<StronglyTypedId<TStronglyTypedId, TValue>>,
+		IEquatable<StronglyTypedId<TStronglyTypedId, TValue>>,
+		IComparable<TStronglyTypedId>,
+		IEquatable<TStronglyTypedId>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
 		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
@@ -142,6 +144,12 @@
 		}
 
 		/// <inheritdoc />
+		public bool Equals(TStronglyTypedId other)
+		{
+			return this.Equals(other as object);
+		}
+
+		/// <inheritdoc />
 		public sealed override bool Equals(object obj)
 		{
 			if(obj is null)
@@ -170,6 +178,12 @@
 				(_, null) => 1,
 				(_, _) => this.Value.CompareTo(other.Value)
 			};
+		}
+
+		/// <inheritdoc />
+		public int CompareTo(TStronglyTypedId other)
+		{
+			return CompareTo((StronglyTypedId<TStronglyTypedId, TValue>)other);
 		}
 
 		/// <summary>

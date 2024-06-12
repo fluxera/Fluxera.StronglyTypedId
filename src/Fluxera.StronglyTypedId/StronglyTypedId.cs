@@ -13,7 +13,9 @@
 	/// <typeparam name="TValue">The type of the IDs value.</typeparam>
 	[PublicAPI]
 	[TypeConverter(typeof(StronglyTypedIdConverter))]
-	public abstract class StronglyTypedId<TStronglyTypedId, TValue> : IComparable<TStronglyTypedId>, IEquatable<TStronglyTypedId>
+	public abstract class StronglyTypedId<TStronglyTypedId, TValue> : 
+		IComparable<StronglyTypedId<TStronglyTypedId, TValue>>, 
+		IEquatable<StronglyTypedId<TStronglyTypedId, TValue>>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
 		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
@@ -124,7 +126,7 @@
 		}
 
 		/// <summary>
-		///		Creates a new instance of the <see cref="TStronglyTypedId"/> with the given value.
+		///		Creates a new instance of the strongly-typed ID with the given value.
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
@@ -134,7 +136,7 @@
 		}
 
 		/// <inheritdoc />
-		public bool Equals(TStronglyTypedId other)
+		public bool Equals(StronglyTypedId<TStronglyTypedId, TValue> other)
 		{
 			return this.Equals(other as object);
 		}
@@ -147,7 +149,7 @@
 				return false;
 			}
 
-			if(object.ReferenceEquals(this, obj))
+			if(ReferenceEquals(this, obj))
 			{
 				return true;
 			}
@@ -159,7 +161,7 @@
 		}
 
 		/// <inheritdoc />
-		public int CompareTo(TStronglyTypedId other)
+		public int CompareTo(StronglyTypedId<TStronglyTypedId, TValue> other)
 		{
 			return (this.Value, other.Value) switch
 			{
@@ -201,10 +203,10 @@
 		}
 
 		/// <summary>
-		///     Converts a value explicitly to an instance of TStronglyTypedId.
+		///     Converts a value implicitly to an instance of TStronglyTypedId.
 		/// </summary>
 		/// <param name="value"></param>
-		public static explicit operator StronglyTypedId<TStronglyTypedId, TValue>(TValue value)
+		public static implicit operator StronglyTypedId<TStronglyTypedId, TValue>(TValue value)
 		{
 			return Create(value);
 		}

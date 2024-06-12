@@ -4,6 +4,7 @@
 	using System.Linq;
 	using System.Threading.Tasks;
 	using FluentAssertions;
+	using Fluxera.StronglyTypedId.EntityFrameworkCore.UnitTests.Model;
 	using Microsoft.EntityFrameworkCore;
 	using NUnit.Framework;
 

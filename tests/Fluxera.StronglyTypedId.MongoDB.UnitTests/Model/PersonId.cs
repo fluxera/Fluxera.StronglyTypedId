@@ -1,5 +1,7 @@
-﻿namespace Fluxera.StronglyTypedId.LiteDB.UnitTests
+﻿namespace Fluxera.StronglyTypedId.MongoDB.UnitTests.Model
 {
+	using Fluxera.StronglyTypedId;
+
 	public sealed class PersonId : StronglyTypedId<PersonId, string>
 	{
 		/// <inheritdoc />

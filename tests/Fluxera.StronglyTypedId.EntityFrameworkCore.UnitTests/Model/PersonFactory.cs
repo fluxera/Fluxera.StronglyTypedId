@@ -1,4 +1,4 @@
-﻿namespace Fluxera.StronglyTypedId.EntityFrameworkCore.UnitTests
+﻿namespace Fluxera.StronglyTypedId.EntityFrameworkCore.UnitTests.Model
 {
 	using System;
 	using System.Collections.Generic;
@@ -16,7 +16,7 @@
 
 		public static void Initialize()
 		{
-			Randomizer.Seed = new Random(62392);
+			Randomizer.Seed = new Random(37);
 		}
 	}
 }

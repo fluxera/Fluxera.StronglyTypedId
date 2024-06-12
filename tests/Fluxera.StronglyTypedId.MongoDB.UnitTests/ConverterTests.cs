@@ -1,6 +1,7 @@
 ﻿namespace Fluxera.StronglyTypedId.MongoDB.UnitTests
 {
 	using FluentAssertions;
+	using Fluxera.StronglyTypedId.MongoDB.UnitTests.Model;
 	using global::MongoDB.Bson;
 	using global::MongoDB.Bson.Serialization;
 	using global::MongoDB.Bson.Serialization.Conventions;

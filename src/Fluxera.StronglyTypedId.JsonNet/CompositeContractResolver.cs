@@ -19,9 +19,10 @@
 		/// <inheritdoc />
 		public JsonContract ResolveContract(Type type)
 		{
+			// ReSharper disable once AssignNullToNotNullAttribute
 			return this.contractResolvers
-				.Select(x => x.ResolveContract(type))
-				.FirstOrDefault();
+					   .Select(x => x.ResolveContract(type))
+					   .FirstOrDefault();
 		}
 
 		/// <inheritdoc />

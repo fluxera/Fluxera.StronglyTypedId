@@ -33,7 +33,7 @@ namespace Fluxera.StronglyTypedId.SystemTextJson
 			}
 
 			TValue value = JsonSerializer.Deserialize<TValue>(ref reader, options);
-			object instance = Activator.CreateInstance(typeToConvert, new object[] { value });
+			object instance = Activator.CreateInstance(typeToConvert, [value]);
 			return (TStronglyTypedId)instance;
 		}
 	}

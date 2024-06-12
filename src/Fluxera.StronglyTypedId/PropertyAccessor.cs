@@ -45,7 +45,7 @@
 						Type getMethodDelegateType = typeof(Func<,>).MakeGenericType(declaringType, propertyType);
 						Delegate getMethodDelegate = getMethod.CreateDelegate(getMethodDelegateType);
 						MethodInfo callInnerGenericMethodWithTypes = CallInnerDelegateMethod.MakeGenericMethod(declaringType, propertyType);
-						Func<object, object> getter = (Func<object, object>)callInnerGenericMethodWithTypes.Invoke(null, new object[] { getMethodDelegate });
+						Func<object, object> getter = (Func<object, object>)callInnerGenericMethodWithTypes.Invoke(null, [getMethodDelegate]);
 
 						return new PropertyAccessor(property.Name, getter);
 					}).ToArray());

@@ -4,7 +4,9 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+#if NET7_0_OR_GREATER
 	using System.Numerics;
+#endif
 	using System.Runtime.CompilerServices;
 
 	internal static class Guard
@@ -46,7 +48,7 @@
 			return argument.Value;
 		}
 
-		public static string ThrowIfNullOrWhiteSpace(string argument, [InvokerParameterName][CallerArgumentExpression("argument")] string parameterName = null)
+		public static string ThrowIfNullOrWhiteSpace(string argument, [InvokerParameterName][CallerArgumentExpression(nameof(argument))] string parameterName = null)
 		{
 			argument = ThrowIfNull(argument, parameterName);
 

@@ -8,7 +8,7 @@
 	[PublicAPI]
 	public sealed class StronglyTypedIdConverter<TStronglyTypedId, TValue> : JsonConverter<TStronglyTypedId>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
-		where TValue : IComparable
+		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
 		/// <inheritdoc />
 		public override bool CanWrite => true;

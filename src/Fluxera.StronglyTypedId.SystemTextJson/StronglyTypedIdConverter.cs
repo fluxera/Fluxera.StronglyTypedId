@@ -9,7 +9,7 @@ namespace Fluxera.StronglyTypedId.SystemTextJson
 	[PublicAPI]
 	public sealed class StronglyTypedIdConverter<TStronglyTypedId, TValue> : JsonConverter<TStronglyTypedId>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
-		where TValue : IComparable
+		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
 		/// <inheritdoc />
 		public override void Write(Utf8JsonWriter writer, TStronglyTypedId value, JsonSerializerOptions options)

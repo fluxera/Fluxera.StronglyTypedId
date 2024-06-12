@@ -14,7 +14,7 @@
 	[PublicAPI]
 	public sealed class StronglyTypedIdSerializer<TStronglyTypedId, TValue> : SerializerBase<TStronglyTypedId>
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
-		where TValue : IComparable
+		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
 		private readonly IBsonSerializer idValueSerializer;
 

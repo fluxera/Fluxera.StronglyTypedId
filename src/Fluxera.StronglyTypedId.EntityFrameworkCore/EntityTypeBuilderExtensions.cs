@@ -30,15 +30,20 @@
 
 			foreach(PropertyInfo property in properties)
 			{
-				Type idType = property.PropertyType;
-				Type valueType = idType.GetStronglyTypedIdValueType();
+				Type originalMemberType = property.PropertyType;
+				Type memberType = Nullable.GetUnderlyingType(originalMemberType) ?? originalMemberType;
 
-				Type converterTypeTemplate = typeof(StronglyTypedIdConverter<,>);
-				Type converterType = converterTypeTemplate.MakeGenericType(idType, valueType);
+				if(memberType.IsStronglyTypedId())
+				{
+					Type valueType = memberType.GetStronglyTypedIdValueType();
 
-				entityTypeBuilder
-					.Property(property.Name)
-					.HasConversion(converterType);
+					Type converterTypeTemplate = typeof(StronglyTypedIdConverter<,>);
+					Type converterType = converterTypeTemplate.MakeGenericType(memberType, valueType);
+
+					entityTypeBuilder
+						.Property(property.Name)
+						.HasConversion(converterType);
+				}
 			}
 		}
 	}

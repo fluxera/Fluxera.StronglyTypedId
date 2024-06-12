@@ -51,7 +51,7 @@
 
 	internal sealed class StronglyTypedIdConverter<TStronglyTypedId, TValue> : TypeConverter
 		where TStronglyTypedId : StronglyTypedId<TStronglyTypedId, TValue>
-		where TValue : notnull, IComparable
+		where TValue : IComparable, IComparable<TValue>, IEquatable<TValue>
 	{
 		// ReSharper disable once StaticMemberInGenericType
 		private static TypeConverter IdValueConverter { get; } = GetIdValueConverter();

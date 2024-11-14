@@ -1,5 +1,6 @@
 ﻿namespace Fluxera.StronglyTypedId.MongoDB.UnitTests
 {
+	using System.Linq;
 	using System.Threading.Tasks;
 	using FluentAssertions;
 	using Fluxera.StronglyTypedId.MongoDB.UnitTests.Model;

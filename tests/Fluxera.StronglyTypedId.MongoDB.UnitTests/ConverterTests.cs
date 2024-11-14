@@ -27,7 +27,7 @@
 			PersonId = new PersonId("6299e4fda14ed1025f7a413e")
 		};
 
-		private static readonly string JsonString = @"{ ""PersonId"" : ObjectId(""6299e4fda14ed1025f7a413e"") }";
+		private static readonly string JsonString = @"{ ""PersonId"" : { ""$oid"" : ""6299e4fda14ed1025f7a413e"" } }";
 
 		[Test]
 		public void ShouldDeserialize()
